@@ -36,33 +36,33 @@ public class Mytest5 {
         assertThat(min(-1, -2, -3)).isEqualTo(-3);
     }
 
-    boolean isNegative(int a){
+    boolean isNegative(int a) {
         return a < 0;
     }
-    int getBigger(int a, int b){
-        if (a > b){
+
+    int getBigger(int a, int b) {
+        if (a > b) {
             return a;
         }
         return b;
     }
-    int getBiggest(int a, int b , int c){
+
+    int getBiggest(int a, int b, int c) {
         // int d = Math.max(a, b);
         // return Math.max(d, c);
         // ---
         // int d = getBigger(a, b);
 
-        int d = getBigger(a,b);
-        if (d > c){
-            return d;
-        }
-        return c;
+        int d = getBigger(a, b);
+        return getBigger(d, c);
     }
-    int min(int a, int b, int c){
-        if(a < b){
+
+    int min(int a, int b, int c) {
+        if (a < b) {
             return a;
-        }else if (a < c){
+        } else if (a < c) {
             return a;
-        }else if (a > c){
+        } else if (a > c) {
             return c;
         }
         return b;
