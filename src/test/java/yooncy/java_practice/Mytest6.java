@@ -90,6 +90,27 @@ public class Mytest6 {
         assertThat(concat(a,b)).isEqualTo("JavaClass");
         // concat()은 문자열을 합쳐주는 함수
     }
+    @Test
+    void maxMin(){
+        System.out.println(minMax(130));
+        System.out.println(minMax(-100));
+        System.out.println(minMax(50));
+        System.out.println(minMax(70));
+        assertThat(minMax(130)).isEqualTo(100);
+        assertThat(minMax(-100)).isEqualTo(0);
+
+    }
+
+    @Test
+    void subStringTest() {
+        String url = "www.naver.com";
+        System.out.println(url.substring(4, 9));
+    }
+
+    @Test
+    void StringTest(){
+        System.out.println("Hi".concat("ㅋ").concat("ㅋ").length());
+    }
 
     int abs(int a) {
         if (a > 0) {
@@ -97,6 +118,19 @@ public class Mytest6 {
         } else {
             return -(a);
         }
+    }
+
+    @Test
+    void trimTest() {
+        String a = "            a    ";
+        assertThat(a.trim()).isEqualTo("a");
+    }
+
+    @Test
+    void joinTest() {
+        String[] abc = {"a","b","c"};
+        System.out.println(String.join(",", abc));
+        System.out.println(String.join("|", abc));
     }
 
     boolean isEmpty(String a) {
@@ -107,5 +141,9 @@ public class Mytest6 {
     String concat(String a, String b){
         String c = a + b;
         return c;
+    }
+
+    int minMax(int score){
+        return Math.max(Math.min(score, 100),0);
     }
 }
