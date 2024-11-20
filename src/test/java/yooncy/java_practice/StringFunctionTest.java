@@ -55,21 +55,37 @@ public class StringFunctionTest {
     @Test
     void 비번test() {
 
-        System.out.println(specialchars("!@#$%^&*()"));
-        System.out.println(specialchars("!@&*()"));
-        System.out.println(specialchars("!@&*3333333333()"));
-
+        System.out.println(password("aaaaaaaaaaaa1A"));
+        System.out.println(password("aaaaaaaaaaaa1"));
+        System.out.println(password("AAAAAAAAAAAAAAAAA1"));
 
     }
 
-    boolean specialchars(String a){
+    boolean password(String a){
 
         if (a.length() <= 8){
             return false;
         }
+        boolean upTrue = false;
         for (int i = 0; i < a.length(); i++) {
-            Character.toUpperCase(a.charAt(i));
+            if (Character.isUpperCase(a.charAt(i))){
+                upTrue = true;
+            }
         }
+        if (!upTrue){
+            return false;
+        }
+
+        boolean lowTrue = false;
+        for (int i = 0; i < a.length(); i++) {
+            if (!Character.isLowerCase(a.charAt(i))){
+                lowTrue = true;
+            }
+        }
+        if (!lowTrue){
+            return false;
+        }
+
         return true;
     }
 
