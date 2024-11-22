@@ -83,21 +83,22 @@ public class ListLoop {
         }
         System.out.println("--------------------");
 
-        // 리스트의 사이즈가 짝수이면 두번째와 세번째를 더해서 나누기 2 , 홀수이면 3번째 출력
-
         ArrayList<Integer> median = new ArrayList<>();
         System.out.println("중앙값 출력");
-        median.add(80);
-        median.add(60);
-        median.add(70);
-        median.add(100);
-        median.add(90);
-        if (median.size() % 2 == 0){
-            int medianSout = (median.get(1) + median.get(2)) / 2;
-            System.out.println(medianSout);
-        }else {
-            System.out.println(median.get(2));
+        for (int i = 0; i < ascending.size(); i++) {
+            median.add(ascending.get(i));
+            // <60, 70, 80, 90, 100>
         }
+
+        // 리스트의 사이즈가 짝수이면 두번째와 세번째를 더해서 나누기 2 , 홀수이면 3번째 출력
+        if (median.size() % 2 == 0){
+            int a = median.get((median.size() / 2) - 1) + median.get((median.size() / 2 )) / 2;
+            System.out.println(a);
+        } else {
+            int b = median.get(median.size()/ 2);
+            System.out.println(b);
+        }
+
 
     }
 }
