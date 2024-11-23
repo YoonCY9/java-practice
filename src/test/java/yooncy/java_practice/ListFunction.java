@@ -293,11 +293,11 @@ public class ListFunction {
             countItems.put(list.get(i), count);
         }
 
-        List<List<Integer>> result = new ArrayList<>();
+        List<List<Integer>> results = new ArrayList<>();
         for (Integer key : list) {
-            result.add(Arrays.asList(key, countItems.get(key)));
+            results.add(Arrays.asList(key, countItems.get(key)));
         }
-        return result;
+        return results;
     }
 }
 
