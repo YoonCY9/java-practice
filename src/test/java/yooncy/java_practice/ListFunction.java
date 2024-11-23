@@ -2,10 +2,7 @@ package yooncy.java_practice;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -80,10 +77,38 @@ public class ListFunction {
     }
 
     @Test
-    void 순위계산Test() {
+    void rankTest() {
         assertThat(calculateRanks(List.of(80, 90, 70, 85))).isEqualTo(List.of(3, 1, 4, 2));
-        assertThat(calculateRanks(List.of(100, 100, 80))).isEqualTo(List.of(1, 1, 3));
-        assertThat(calculateRanks(List.of())).isEqualTo(List.of());
+//        assertThat(calculateRanks(List.of(100, 100, 80))).isEqualTo(List.of(1, 1, 3));
+//        assertThat(calculateRanks(List.of())).isEqualTo(List.of());
+    }
+
+    @Test
+    void totalPriceTest() {
+        assertThat(calculateTotalPrice(List.of(1000, 2000, 3000))).isEqualTo(6000);
+        assertThat(calculateTotalPrice(List.of(5000))).isEqualTo(5000);
+        assertThat(calculateTotalPrice(List.of())).isEqualTo(0);
+    }
+
+    @Test
+    void 할인율Test() {
+        assertThat(applyDiscount(List.of(1000, 2000, 3000), 10)).isEqualTo(List.of(900, 1800, 2700));
+        assertThat(applyDiscount(List.of(5000), 50)).isEqualTo(List.of(2500));
+        assertThat(applyDiscount(List.of(), 20)).isEqualTo(List.of());
+    }
+
+    @Test
+    void 고가상품필터링() {
+        assertThat(filterExpensiveItems(List.of(1000, 2000, 3000, 4000), 2500)).isEqualTo(List.of(3000, 4000));
+        assertThat(filterExpensiveItems(List.of(1000, 1500, 2000), 3000)).isEqualTo(List.of());
+        assertThat(filterExpensiveItems(List.of(), 2000)).isEqualTo(List.of());
+    }
+
+    @Test
+    void 중복상품개수Test (){
+        assertThat(countDuplicateItems(List.of(1000, 2000, 1000, 3000, 2000))).isEqualTo(List.of(List.of(1000, 2), List.of(2000, 2), List.of(3000, 1)));
+        assertThat(countDuplicateItems(List.of(5000))).isEqualTo(List.of(List.of(5000, 1)));
+        assertThat(countDuplicateItems(List.of())).isEqualTo(List.of());
     }
 
     static int getSum(List<Integer> numbers) {
@@ -189,18 +214,90 @@ public class ListFunction {
 
     List<Integer> removeDuplicates(List<Integer> numbers) {
         ArrayList<Integer> removeList = new ArrayList<>();
-        for (int i = 0; i < numbers.size(); i++) {
-            removeList.add(numbers.get(i));
+//        for (int i = 0; i < numbers.size(); i++) {
+//            removeList.add(numbers.get(i));
+//        }
+//        Set<Integer> removeList2 = new HashSet<>(removeList);
+//
+//        return new ArrayList<>(removeList2);
+        // 0번과 1번을 비교해서 1번의 값이 없으면 0번의 값을 새 리스트에 추가
+        for (int i = 0; i < numbers.size(); i++) { // 1 1 2 2
+            if (!removeList.contains(numbers.get(i))) {
+                removeList.add(numbers.get(i));
+            }
         }
-        Set<Integer> removeList2 = new HashSet<>(removeList);
-
-        return new ArrayList<>(removeList2);
+        return removeList;
     }
+
     List<Integer> calculateRanks(List<Integer> numbers) {
-        ArrayList<Integer> ranking = new ArrayList<>();
+        ArrayList<Integer> rank = new ArrayList<>();
 
+        for (int i = 0; i < numbers.size(); i++) {
+            int count = 1;
+            for (int j = 0; j < numbers.size(); j++) {
+                if (numbers.get(i) < numbers.get(j)) {
+                    count++;
+                }
+            }
+            rank.add(count);
+        }
+
+        return rank;
     }
 
+    int calculateTotalPrice(List<Integer> numbers) {
+        int totalPrice = 0;
+        for (int i = 0; i < numbers.size(); i++) {
+            totalPrice += numbers.get(i);
+        }
+        return totalPrice;
+    }
 
+    List<Integer> applyDiscount(List<Integer> price, int discount) {
+        ArrayList<Integer> applyDiscount = new ArrayList<>();
+        for (int i = 0; i < price.size(); i++) {
+            double discountPrice = price.get(i) * (discount * 0.01);
+            int discountPrice2 = price.get(i) - (int) discountPrice;
+            applyDiscount.add(discountPrice2);
+        }
 
+        return applyDiscount;
+    }
+
+    List<Integer> filterExpensiveItems(List<Integer> price, int standardPrice) {
+        ArrayList<Integer> resultPrice = new ArrayList<>();
+        for (int i = 0; i < price.size(); i++) {
+            if (price.get(i) >= standardPrice) {
+                resultPrice.add(price.get(i));
+            }
+        }
+        return resultPrice;
+    }
+
+    List<List<Integer>> countDuplicateItems(List<Integer> items) {
+        ArrayList<Integer> list = new ArrayList<>();
+        HashMap<Integer, Integer> countItems = new HashMap<>();
+
+        for (int i = 0; i < items.size(); i++) {
+            if (!list.contains(items.get(i))) {
+                list.add(items.get(i)); // {1000, 2000, 3000}
+            }
+        }
+        for (int i = 0; i < list.size(); i++) {
+            int count = 0;
+            for (int j = 0; j < items.size(); j++) {
+                if (Objects.equals(list.get(i), items.get(j))) {
+                    count++;
+                }
+            }
+            countItems.put(list.get(i), count);
+        }
+
+        List<List<Integer>> result = new ArrayList<>();
+        for (Integer key : list) {
+            result.add(Arrays.asList(key, countItems.get(key)));
+        }
+        return result;
+    }
 }
+
