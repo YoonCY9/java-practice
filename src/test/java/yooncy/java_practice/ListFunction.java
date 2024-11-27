@@ -287,6 +287,7 @@ public class ListFunction {
             int count = 0;
             for (int j = 0; j < items.size(); j++) {
                 if (Objects.equals(list.get(i), items.get(j))) {
+                    // list.get(i) == items.get(j)
                     count++;
                 }
             }
