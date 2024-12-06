@@ -1,5 +1,8 @@
 package yooncy.java_practice;
 
+import BankAccount1206.*;
+import moneyTest.Money;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -7,13 +10,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class Mytest {
 
     @Test
-    void maxText() {
-        assertThat(square(4)).isEqualTo(16);
-        assertThat(square(-4)).isEqualTo(16);
+    void 생성테스트() {
+        BankAccount one = new BankAccount("111-1111-1111", new Money(0), "이효리");
+
+        Money money = new Money(1000);
+
+        Assertions.assertThat(one.accountNumber).isEqualTo("111-1111-1111");
+        Assertions.assertThat(one.balance).isEqualTo(new Money(0));
+        Assertions.assertThat(one.owner).isEqualTo("이효리");
+        one.deposit(money);
+        one.deposit(money);
+        one.deposit(money);
+        Assertions.assertThat(one.balance).isEqualTo(new Money(3000));
+
+
 
 
     }
-    int square(int num){
-        return num * num;
-    }
+
+
 }
+

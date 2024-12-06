@@ -2,6 +2,9 @@ package yooncy.java_practice;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StringFunctionTest {
@@ -51,7 +54,6 @@ public class StringFunctionTest {
     }
 
 
-
     @Test
     void 비번test() {
 
@@ -61,51 +63,65 @@ public class StringFunctionTest {
 
     }
 
-    boolean password(String a){
+    boolean password(String a) {
 
-        if (a.length() <= 8){
+        if (a.length() <= 8) {
             return false;
         }
         boolean upTrue = false;
         for (int i = 0; i < a.length(); i++) {
-            if (Character.isUpperCase(a.charAt(i))){
+            if (Character.isUpperCase(a.charAt(i))) {
                 upTrue = true;
             }
         }
-        if (!upTrue){
+        if (!upTrue) {
             return false;
         }
 
         boolean lowTrue = false;
         for (int i = 0; i < a.length(); i++) {
-            if (!Character.isLowerCase(a.charAt(i))){
+            if (!Character.isLowerCase(a.charAt(i))) {
                 lowTrue = true;
             }
         }
-        if (!lowTrue){
+        if (!lowTrue) {
             return false;
         }
 
         return true;
     }
-
-
-
-
-
-    String extractDomain(String a){
-        String httpDelete = a.substring(8);
-        return httpDelete.substring(0,httpDelete.indexOf('/'));
+    int solution(int n) {
+        int answer = 0;
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 1) {
+                return i;
+            }
+        }
+        return answer;
     }
 
-    boolean isValidPhoneNumber(String a){
+    @Test
+    void 솔류션테스트() {
 
-        if (a.length() == 11 && a.startsWith("010") && isValidIdNumber(a)){
+        int 결과1 = solution(10);
+        assertThat(결과1).isEqualTo(3);
+
+        int 결과2 = solution(12);
+        assertThat(결과2).isEqualTo(11);
+    }
+
+    String extractDomain(String a) {
+        String httpDelete = a.substring(8);
+        return httpDelete.substring(0, httpDelete.indexOf('/'));
+    }
+
+    boolean isValidPhoneNumber(String a) {
+
+        if (a.length() == 11 && a.startsWith("010") && isValidIdNumber(a)) {
             return true;
         }
         return false;
     }
-
 
 
     boolean isValidEmail(String email) {
@@ -128,12 +144,41 @@ public class StringFunctionTest {
 
     String toCameCase(String a) {
 
-        String first = a.substring(0,a.indexOf('_'));
-        String second = a.substring(a.indexOf('_')+1);
+        String first = a.substring(0, a.indexOf('_'));
+        String second = a.substring(a.indexOf('_') + 1);
 
-        String second2 = second.substring(0,1);
+        String second2 = second.substring(0, 1);
         String second3 = second.substring(1);
         return first.concat(second2.toUpperCase())
                 .concat(second3);
     }
+
+    String notCompleted(String[] participant, String[] completion) {
+        participant[0] = "leo";
+        participant[1] = "kiki";
+        participant[2] = "eden";
+
+        completion[0] = "eden";
+        completion[1] = "kiki";
+        String answer = "";
+        HashMap<String, Integer> allCount = new HashMap<>();
+
+        for (String name : participant) {
+            allCount.put(name, allCount.getOrDefault(name, 0) + 1);
+        }
+        for (String name : completion) {
+            allCount.put(name, allCount.get(name) - 1);
+        }
+        for (Map.Entry<String, Integer> entry : allCount.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            if (value > 0 ) {
+                return key;
+            }
+        }
+
+        return answer;
+    }
+
+
 }
