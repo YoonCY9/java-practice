@@ -1,4 +1,4 @@
-package ClassPractice;
+package ClassPractice.book1;
 
 
 public class Book {

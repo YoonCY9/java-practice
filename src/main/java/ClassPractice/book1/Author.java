@@ -1,9 +1,13 @@
-package ClassPractice;
+package ClassPractice.book1;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Author {
 
     private String name;
     private String dateOfBirth;
+    private List<Book> books = new ArrayList<>();
 
     public Author(String name, String dateOfBirth) {
         this.name = name;
@@ -15,4 +19,5 @@ public class Author {
         }
         name = newName;
     }
+
 }
