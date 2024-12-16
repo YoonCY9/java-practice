@@ -8,14 +8,11 @@ public class BankAccount {
     public Money balance;
     public String owner;
 
-
-
     public BankAccount(String accountNumber,Money balance,String owner) {
         this.balance = balance;
         this.accountNumber = accountNumber;
         this.owner = owner;
     }
-
 
     public void deposit(Money money) {
         balance = money.plus(balance);

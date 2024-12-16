@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class LottoCount {
 
-    private int amount;
+    private final int amount;
 
     public LottoCount(int amount) {
         if (amount % 1000 != 0) {

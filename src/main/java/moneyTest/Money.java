@@ -21,6 +21,7 @@ public class Money {
     public Money plus(Money value) {
         return new Money(value.plus(money));
     }
+
     public int minus(int value) {
         if (value >= money) {
             return money -= value;
